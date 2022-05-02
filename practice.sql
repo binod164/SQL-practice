@@ -68,3 +68,20 @@ SELECT patients.patient_id,first_name, last_name
   JOIN admissions
   ON patients.patient_id = admissions.patient_id
   Where primary_diagnosis = "Dementia";
+
+--16.Show patient_id, first_name, last_name from the patients table.
+-- Order the rows by the first_name ascending and then by the last_name descending.
+SELECT patient_id,first_name, last_name
+  FROM patients
+  ORDER by first_name ASC, last_name DESC;
+
+  --17.Show the total amount of male patients and the total amount of female patients in the patients table
+  SELECT (SELECT count(*) FROM patients WHERE gender='M') AS male_count, 
+  (SELECT count(*) FROM patients WHERE gender='F') AS female_count;  
+
+  --18.Show first and last name, allergies from patients which have allergies to either 'Penicillin' or 'Morphine'. Show results ordered ascending by allergies then by first_name then by last_name.
+  SELECT first_name, last_name, allergies FROM patients
+WHERE allergies in ("Penicillin", "Morphine")
+ORder by allergies, first_name, last_name;
+
+19.Show patient_id, primary_diagnosis from admissions. Find patients admitted multiple times for the same primary_diagnosis.
