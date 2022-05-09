@@ -213,4 +213,53 @@ WHERE
 DELETE p1 FROM Person p1,
     Person p2
 WHERE
-    p1.Email = p2.Email AND p1.Id > p2.Id
+    p1.Email = p2.Email AND p1.Id > p2.Id;
+
+--24.+-------------+---------+
+-- | Column Name | Type    |
+-- +-------------+---------+
+-- | student     | varchar |
+-- | class       | varchar |
+-- +-------------+---------+
+-- (student, class) is the primary key column for this table.
+-- Each row of this table indicates the name of a student and the class in which they are enrolled.
+ 
+
+-- Write an SQL query to report all the classes that have at least five students.
+
+-- Return the result table in any order.
+
+SELECT class FROM Courses
+GROUP BY class
+HAVING COUNT(student) >= 5;
+
+
+--25.Query all columns for all American cities in the CITY table with populations larger than 100000. The CountryCode for America is USA.
+SELECT * FROM CITY
+WHERE COUNTRYCODE="USA" AND POPULATION>100000;
+
+
+--26.Query the NAME field for all American cities in the CITY table with populations larger than 120000. The CountryCode for America is USA.
+
+SELECT NAME FROM CITY
+WHERE COUNTRYCODE = "USA" AND POPULATION>120000;
+
+--27.Query all columns for a city in CITY with the ID 1661.
+
+SELECT * FROM CITY
+WHERE ID = 1661;
+
+--28.Query all attributes of every Japanese city in the CITY table. The COUNTRYCODE for Japan is JPN.
+
+SELECT * FROM CITY
+WHERE COUNTRYCODE = "JPN";
+
+--29.Query the names of all the Japanese cities in the CITY table. The COUNTRYCODE for Japan is JPN.
+SELECT NAME FROM CITY
+WHERE COUNTRYCODE = "JPN";
+
+--30.Query a list of CITY names from STATION for cities that have an even ID number. Print the results in any order, but exclude duplicates from the answer.
+-- Query a list of CITY names from STATION for cities that have an even ID number. Print the results in any order, but exclude duplicates from the answer.
+
+SELECT DISTINCT CITY FROM STATION 
+WHERE MOD(ID,2)=0;
