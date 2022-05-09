@@ -316,3 +316,75 @@ SELECT DISTINCT CITY FROM STATION WHERE upper(SUBSTR(CITY,1,1)) NOT IN ('A','E',
 
 --39.Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. Your result cannot contain duplicates.
 SELECT DISTINCT CITY FROM STATION WHERE upper(SUBSTR(CITY,1,1)) NOT IN ('A','E','I','O','U') AND lower(SUBSTR(CITY,LENGTH(CITY),1)) NOT IN ('a','e','i','o','u');    
+
+--40.Query the Name of any student in STUDENTS who scored higher than 75 Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
+-- Input Format
+
+-- The STUDENTS table is described as follows:
+
+-- Column	Type
+-- ID	INTEGER
+-- NAME	STRING
+-- MARKS	INTEGER
+-- The Name column only contains uppercase (A-Z) and lowercase (a-z) letters.
+
+-- Sample Input
+
+-- ID	NAME	MARKS
+-- 1	ASHLEY	81
+-- 2	SAMANTHA	75
+-- 4	JULIA	76
+-- 3	JULIA	84
+-- Sample Output
+
+-- Ashley Julia Belvet
+
+SELECT NAME FROM STUDENTS
+WHERE MARKS > 75
+ORDER BY (RIGHT(NAME,3)), ID;
+
+--41.###Employee Names
+-- Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
+
+-- Input Format
+
+-- The Employee table containing employee data for a company is described as follows:
+
+-- Column	Type
+-- employee_id	INTEGER
+-- name	STRING
+-- months	INTEGER
+-- salary	INTEGER
+-- where employee_id is an employee's ID number, name is their name, months is the total number of months they've been working for the company, and salary is their monthly salary.
+
+-- Sample Input
+
+-- employee_id	name	marks	salary
+-- 12228	Rose	15	1968
+-- 33645	Angela	1	3443
+-- 45692	Frank	17	1608
+-- 56118	Patrick	7	1345
+-- 59725	Lisa	11	2330
+-- 74197	Kimberly	16	4372
+-- 78454	Bonnie	8	1771
+-- 83565	Michael	6	2017
+-- 98607	Todd	5	3396
+-- 99989	Joe	9	3573
+-- Sample Output
+
+-- Angela Bonnie Frank Joe Kimberly Lisa Michael Patrick Rose Todd
+
+SELECT name FROM Employee
+ORDER BY name;
+
+--42.Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than  per month who have been employees for less than  months. Sort your result by ascending employee_id.
+SELECT name FROM Employee
+WHERE salary > 2000 AND months < 10
+ORDER BY employee_id;
+
+--43.The Blunder
+-- Samantha was tasked with calculating the average monthly salaries for all employees in the EMPLOYEES table, but did not realize her keyboard's  key was broken until after completing the calculation. She wants your help finding the difference between her miscalculation (using salaries with any zeros removed), and the actual average salary.
+
+-- Write a query calculating the amount of error (i.e.:  average monthly salaries), and round it up to the next integer.
+
+SELECT CEIL(AVG(Salary)-AVG(replace(Salary, 0 ,""))) FROM EMPLOYEES;
