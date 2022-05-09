@@ -84,4 +84,133 @@ SELECT patient_id,first_name, last_name
 WHERE allergies in ("Penicillin", "Morphine")
 ORder by allergies, first_name, last_name;
 
-19.Show patient_id, primary_diagnosis from admissions. Find patients admitted multiple times for the same primary_diagnosis.
+--19Table: Person
+
+-- +-------------+---------+
+-- | Column Name | Type    |
+-- +-------------+---------+
+-- | personId    | int     |
+-- | lastName    | varchar |
+-- | firstName   | varchar |
+-- +-------------+---------+
+-- personId is the primary key column for this table.
+-- This table contains information about the ID of some persons and their first and last names.
+ 
+
+-- Table: Address
+
+-- +-------------+---------+
+-- | Column Name | Type    |
+-- +-------------+---------+
+-- | addressId   | int     |
+-- | personId    | int     |
+-- | city        | varchar |
+-- | state       | varchar |
+-- +-------------+---------+
+-- addressId is the primary key column for this table.
+-- Each row of this table contains information about the city and state of one person with ID = PersonId.
+ 
+
+-- Write an SQL query to report the first name, last name, city, and state of each person in the Person table. If the address of a personId is not present in the Address table, report null instead.
+
+-- Return the result table in any order.
+
+-- The query result format is in the following example.
+
+
+SELECT firstName,lastName,city,state from Person
+LEFT JOIN Address
+ON Person.personId = Address.personId;
+
+--20.+-------------+---------+
+-- | Column Name | Type    |
+-- +-------------+---------+
+-- | id          | int     |
+-- | email       | varchar |
+-- +-------------+---------+
+-- id is the primary key column for this table.
+-- Each row of this table contains an email. The emails will not contain uppercase letters.
+ 
+
+-- Write an SQL query to report all the duplicate emails.
+SELECT email FROM Person
+GROUP BY email
+HAVING COUNT(email)>1
+
+--21.Table: Customers
+
+-- +-------------+---------+
+-- | Column Name | Type    |
+-- +-------------+---------+
+-- | id          | int     |
+-- | name        | varchar |
+-- +-------------+---------+
+-- id is the primary key column for this table.
+-- Each row of this table indicates the ID and name of a customer.
+ 
+
+-- Table: Orders
+
+-- +-------------+------+
+-- | Column Name | Type |
+-- +-------------+------+
+-- | id          | int  |
+-- | customerId  | int  |
+-- +-------------+------+
+-- id is the primary key column for this table.
+-- customerId is a foreign key of the ID from the Customers table.
+-- Each row of this table indicates the ID of an order and the ID of the customer who ordered it.
+
+
+SELECT Customers.name As Customers FROM Customers 
+WHERE Customers.id NOT IN
+(SELECT customerId FROM Orders);
+
+--22.+-------------+---------+
+-- | Column Name | Type    |
+-- +-------------+---------+
+-- | id          | int     |
+-- | name        | varchar |
+-- | salary      | int     |
+-- | managerId   | int     |
+-- +-------------+---------+
+-- id is the primary key column for this table.
+-- Each row of this table indicates the ID of an employee, their name, salary, and the ID of their manager.
+ 
+
+-- Write an SQL query to find the employees who earn more than their managers.
+
+-- Return the result table in any order.
+
+-- The query result format is in the following example.
+
+SELECT
+    a.Name AS 'Employee'
+FROM
+    Employee AS a,
+    Employee AS b
+WHERE
+    a.ManagerId = b.Id
+        AND a.Salary > b.Salary
+;
+
+--23. +-------------+---------+
+-- | Column Name | Type    |
+-- +-------------+---------+
+-- | id          | int     |
+-- | email       | varchar |
+-- +-------------+---------+
+-- id is the primary key column for this table.
+-- Each row of this table contains an email. The emails will not contain uppercase letters.
+ 
+
+-- Write an SQL query to delete all the duplicate emails, keeping only one unique email with the smallest id. Note that you are supposed to write a DELETE statement and not a SELECT one.
+
+-- Return the result table in any order.
+
+-- The query result format is in the following example.
+
+DELETE p1 FROM Person p1,
+    Person p2
+WHERE
+    p1.Email = p2.Email AND p1.Id > p2.Id
