@@ -235,6 +235,13 @@ HAVING COUNT(student) >= 5;
 
 
 --25.Query all columns for all American cities in the CITY table with populations larger than 100000. The CountryCode for America is USA.
+-- Field	Type
+-- ID	NUMBER
+-- NAME	VARCHAR2(17)
+-- COUNTRY CODE	VARCHAR2(3)
+-- DISTRICT	VARCHAR2(20)
+-- POPULATION	NUMBER
+
 SELECT * FROM CITY
 WHERE COUNTRYCODE="USA" AND POPULATION>100000;
 
@@ -259,7 +266,35 @@ SELECT NAME FROM CITY
 WHERE COUNTRYCODE = "JPN";
 
 --30.Query a list of CITY names from STATION for cities that have an even ID number. Print the results in any order, but exclude duplicates from the answer.
--- Query a list of CITY names from STATION for cities that have an even ID number. Print the results in any order, but exclude duplicates from the answer.
+-- Field	Type
+-- ID	NUMBER
+-- CITY	VARCHAR2(21)
+-- STATE	VARCHAR2(2)
+-- LAT_N	NUMBER
+-- LONG_W	NUMBER
+
 
 SELECT DISTINCT CITY FROM STATION 
 WHERE MOD(ID,2)=0;
+
+--31.Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.
+SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
+
+--32.Query the two cities in STATION with the shortest and longest CITY names, as well as their respective lengths (i.e.: number of characters in the name). If there is more than one smallest or largest city, choose the one that comes first when ordered alphabetically.
+
+SELECT CITY, LENGTH(CITY) FROM STATION 
+ORDER BY LENGTH(CITY), CITY LIMIT 1;
+SELECT CITY, LENGTH(CITY) FROM STATION 
+ORDER BY LENGTH(CITY) DESC, CITY LIMIT 1;
+
+--33.Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION
+WHERE CITY LIKE 'a%' OR CITY LIKE 'e%' OR CITY LIKE 'i%' OR CITY LIKE 'o%' OR CITY LIKE 'u%';
+
+--34.Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.
+
+SELECT DISTINCT CITY FROM STATION 
+WHERE CITY LIKE '%a' OR CITY LIKE '%e' OR CITY LIKE '%i' OR CITY LIKE '%o' OR CITY LIKE '%u';
+
+--35.Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION WHERE upper(SUBSTR(CITY,1,1)) IN ('A','E','I','O','U') AND lower(RIGHT(CITY,1)) IN ('a','e','i','o','u');     
