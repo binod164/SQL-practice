@@ -297,4 +297,22 @@ SELECT DISTINCT CITY FROM STATION
 WHERE CITY LIKE '%a' OR CITY LIKE '%e' OR CITY LIKE '%i' OR CITY LIKE '%o' OR CITY LIKE '%u';
 
 --35.Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.
-SELECT DISTINCT CITY FROM STATION WHERE upper(SUBSTR(CITY,1,1)) IN ('A','E','I','O','U') AND lower(RIGHT(CITY,1)) IN ('a','e','i','o','u');     
+SELECT DISTINCT CITY FROM STATION WHERE upper(SUBSTR(CITY,1,1)) IN ('A','E','I','O','U') AND lower(RIGHT(CITY,1)) IN ('a','e','i','o','u');
+--OR
+SELECT DISTINCT CITY FROM STATION WHERE upper(SUBSTR(CITY,1,1)) IN ('A','E','I','O','U') AND lower(SUBSTR(CITY,LENGTH(CITY),1)) IN ('a','e','i','o','u');     
+
+
+--36.Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION 
+WHERE upper(SUBSTR(CITY,1,1)) NOT IN ("A","E","I","O","U");
+
+--37.Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.
+
+SELECT DISTINCT CITY FROM STATION 
+WHERE upper(SUBSTR(CITY,LENGTH(CITY),1)) NOT IN ("A","E","I","O","U");
+
+--38.Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION WHERE upper(SUBSTR(CITY,1,1)) NOT IN ('A','E','I','O','U') OR lower(SUBSTR(CITY,LENGTH(CITY),1)) NOT IN ('a','e','i','o','u');    
+
+--39.Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION WHERE upper(SUBSTR(CITY,1,1)) NOT IN ('A','E','I','O','U') AND lower(SUBSTR(CITY,LENGTH(CITY),1)) NOT IN ('a','e','i','o','u');    
